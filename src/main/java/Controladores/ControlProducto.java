@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Modelos.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ControlProducto", urlPatterns = {"/ControlProducto"})
 public class ControlProducto extends HttpServlet {
-
+    Producto objProducto = new Producto(); 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,18 +32,38 @@ public class ControlProducto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControlProducto</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControlProducto at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String accion = request.getParameter("btnAccion"); 
+            
+            if(accion.equals("Insertar")){
+                
+                int codigoProducto = Integer.parseInt(request.getParameter("codigoProducto")); 
+                String nombreProducto = request.getParameter("nombreProducto"); 
+                int cantidadProducto = Integer.parseInt(request.getParameter("cantidadProducto"));
+                int precioProducto = Integer.parseInt(request.getParameter("precioProducto"));
+                String categoriaProducto = request.getParameter("categoriaProducto"); 
+                
+                objProducto.setCodigoProducto(codigoProducto);
+                objProducto.setNombreProducto(nombreProducto);
+                objProducto.setCantidadProducto(cantidadProducto);
+                objProducto.setPrecioProducto(precioProducto);
+                objProducto.setCategoria(categoriaProducto);
+                
+                objProducto.crearProducto();
+                
+                String mensaje = "<html> <body>"+
+                                 " <script type='text/javaScript'> "+
+                                 "      alert('Producto insertador correctamente!'); "+
+                                 "      window.location.href='index.jsp'"+
+                                 "</script> </body> </html>"; 
+                
+                out.println(mensaje);
+            }
+        }
+        catch(Exception error){
+            System.out.println("Error Controlador: "+ error);
         }
     }
 
