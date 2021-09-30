@@ -8,6 +8,8 @@ package Controladores;
 import Modelos.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,6 +68,31 @@ public class ControlProducto extends HttpServlet {
             System.out.println("Error Controlador: "+ error);
         }
     }
+    
+    public ArrayList listar(){
+        try {
+            ResultSet consulta = objProducto.listarProducto(); 
+            ArrayList<Producto> listaProducto = new ArrayList<>(); 
+            
+            while(consulta.next()){
+                objProducto = new Producto(); 
+                objProducto.setCodigoProducto(consulta.getInt(1));
+                objProducto.setNombreProducto(consulta.getString(2));
+                objProducto.setCantidadProducto(consulta.getInt(3));
+                objProducto.setPrecioProducto(consulta.getInt(4));
+                objProducto.setCategoria(consulta.getString(5));
+                listaProducto.add(objProducto); 
+            }
+            
+            return listaProducto; 
+            
+        } catch (Exception error) {
+            System.out.println("Error Controlador:" + error);
+        }
+ 
+        return null;
+    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

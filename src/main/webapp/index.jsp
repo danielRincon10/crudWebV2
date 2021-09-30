@@ -4,6 +4,9 @@
     Author     : PC_Daniel
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Controladores.ControlProducto"%>
+<%@page import="Modelos.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -75,39 +78,25 @@
                   </tr>
                 </thead>
                 <tbody>
+                    <% 
+                        ArrayList<Producto> listaProducto = new ArrayList<>(); 
+                        ControlProducto ctrProducto = new ControlProducto(); 
+                        listaProducto = ctrProducto.listar(); 
+                        
+                        for(int i=0; i<listaProducto.size();i++){
+                    %>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <th scope="row"><%=listaProducto.get(i).getCodigoProducto()%></th>
+                    <td><%=listaProducto.get(i).getNombreProducto()%></td>
+                    <td><%=listaProducto.get(i).getCantidadProducto()%></td>
+                    <td><%=listaProducto.get(i).getPrecioProducto()%></td>
+                    <td><%=listaProducto.get(i).getCategoria()%></td>
                     <td>
-                        <button class="btn btn-outline-success">Actualizar</button>
-                        <button class="btn btn-danger"> Eliminar </button>
+                        <a href="actualizar.jsp?codigoProducto=<%=listaProducto.get(i).getCodigoProducto()%>"><button class="btn btn-outline-success">Actualizar</button></a>
+                        <a href="ControlProducto?codigoProducto=<%=listaProducto.get(i).getCodigoProducto()%>"><button class="btn btn-danger"> Eliminar </button></a>
                     </td>
                   </tr>
-          <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>
-                        <button class="btn btn-outline-success">Actualizar</button>
-                        <button class="btn btn-danger"> Eliminar </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>
-                        <button class="btn btn-outline-success">Actualizar</button>
-                        <button class="btn btn-danger"> Eliminar </button>
-                    </td>
-                  </tr>
+                  <%}%>
                 </tbody>
               </table>
         </section>

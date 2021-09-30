@@ -6,6 +6,7 @@
 package Modelos;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -94,7 +95,24 @@ public class Producto {
         
     }
     
-    public void listarProducto(){
+    public ResultSet listarProducto(){
+        Conexion objConector = new Conexion(); 
+        objConector.conectar();
+        
+        try {
+            
+            String sql = "SELECT * FROM producto; ";
+            PreparedStatement stmt; 
+            stmt = objConector.conn.prepareStatement(sql); 
+            ResultSet consulta = stmt.executeQuery(); 
+            objConector.desconectar();
+            return consulta; 
+            
+        } catch (Exception error) {
+            System.out.println("Error Modelo: "+error);
+        }
+ 
+        return null;
         
     }
     
