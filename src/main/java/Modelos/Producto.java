@@ -91,8 +91,25 @@ public class Producto {
         }
     }
     
-    public void consultarProducto(){
+    public ResultSet consultarProducto(){
+        Conexion objConector = new Conexion(); 
+        objConector.conectar();
         
+        try {
+            
+            String sql = "SELECT * FROM producto WHERE codigoProducto = ? ; ";
+            PreparedStatement stmt; 
+            stmt = objConector.conn.prepareStatement(sql); 
+            stmt.setInt(1, this.codigoProducto);
+            ResultSet consulta = stmt.executeQuery(); 
+            objConector.desconectar();
+            return consulta; 
+            
+        } catch (Exception error) {
+            System.out.println("Error Modelo: "+error);
+        }
+ 
+        return null;
     }
     
     public ResultSet listarProducto(){
@@ -117,7 +134,32 @@ public class Producto {
     }
     
     public void actualizarProducto(){
+         
+        Conexion objConector = new Conexion(); 
+        objConector.conectar();
         
+        try {
+            
+            String sql = "UPDATE producto SET "+
+                         "nombreProducto = ?, "+
+                         "cantidadProducto = ?, "+
+                         "precioProducto = ?, "+
+                         "categoriaProducto = ? "+
+                         "WHERE codigoProducto = ?; "; 
+            PreparedStatement stmt; 
+            stmt = objConector.conn.prepareStatement(sql); 
+            stmt.setInt(5, this.codigoProducto);
+            stmt.setString(1, this.nombreProducto);
+            stmt.setInt(2, this.cantidadProducto);
+            stmt.setInt(3, this.precioProducto); 
+            stmt.setString(4, this.categoria);
+            
+            stmt.execute(); 
+            
+            objConector.desconectar();
+        } catch (Exception error) {
+            System.out.println("Error Modelo: "+error);
+        }
     }
     
     public void eliminarProducto(){
