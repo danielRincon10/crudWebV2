@@ -18,6 +18,18 @@
         
     </head>
     <body>
+        <script type="text/javascript">
+            function confirmar(){
+                var respuesta = confirm("¿Desea eliminar el producto?"); 
+                if(respuesta === true){
+                    return true; 
+                }
+                else {
+                    return false; 
+                }
+            }
+        </script>
+        
         <header>
             <div class="container bg-success text-center bg-opacity-25 margen" >
                 <h1>CRUD WEB Misión TIC 2021 JSP + JAVA + BOOTSTRAP</h1>
@@ -48,7 +60,8 @@
                            <label for="floatingInput">Precio: </label>
                         </div>
                         <label>Categoria: </label>
-                        <select class="form-select" multiple aria-label="multiple select example" name="categoriaProducto">
+                        <select class="form-select" multiple aria-label="multiple select example" name="categoriaProducto" required="">
+                            
                             <option value="Lacteos">Lacteos</option>
                             <option value="Viveres">Viveres</option>
                             <option value="Abarrotes">Abarrotes</option>
@@ -93,7 +106,7 @@
                     <td><%=listaProducto.get(i).getCategoria()%></td>
                     <td>
                         <a href="actualizar.jsp?codigoProducto=<%=listaProducto.get(i).getCodigoProducto()%>"><button class="btn btn-outline-success">Actualizar</button></a>
-                        <a href="ControlProducto?codigoProducto=<%=listaProducto.get(i).getCodigoProducto()%>"><button class="btn btn-danger"> Eliminar </button></a>
+                        <a href="ControlProducto?codigoProducto=<%=listaProducto.get(i).getCodigoProducto()%>&btnAccion=Eliminar"><button class="btn btn-danger" onclick="return confirmar();"> Eliminar </button></a>
                     </td>
                   </tr>
                   <%}%>

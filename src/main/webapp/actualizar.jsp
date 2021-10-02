@@ -54,7 +54,7 @@
                            <label for="floatingInput">Precio: </label>
                         </div>
                         <label>Categoria: </label>
-                        <select class="form-select" multiple aria-label="multiple select example" name="categoriaProducto">
+                        <select class="form-select" multiple aria-label="multiple select example" name="categoriaProducto" required="">
                             <option value="Lacteos">Lacteos</option>
                             <option value="Viveres">Viveres</option>
                             <option value="Abarrotes">Abarrotes</option>
