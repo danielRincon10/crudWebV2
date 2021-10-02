@@ -168,7 +168,7 @@ public class Producto {
         
         try {
             
-            String sql = "DELETEFROM producto "+
+            String sql = "DELETE FROM producto "+
                          "WHERE codigoProducto = ?; "; 
             PreparedStatement stmt; 
             stmt = objConector.conn.prepareStatement(sql); 
